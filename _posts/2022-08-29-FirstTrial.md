@@ -1,6 +1,9 @@
 ---
-
+layout: post
 title: "ResNet 논문 리뷰(Deep Residual Learning for Image Recognition)"
+tags: ["ResNet", "Deep Learning"]
+use_math: true
+comments: true
 
 ---
 
