@@ -164,8 +164,6 @@ ResNet에서는 1*1 convolution을 통하여 차원을 낮추거나 높여줍니
 
  
 
-\\읽다가 잘못된 부분을 발견하거나 피드백이 있다면 댓글로 달아주세요!
-
  
 
 출처:ResNet: Deep Residual Learning for Image Recognition (꼼꼼한 딥러닝 논문 리뷰와 코드 실습) - YouTube
