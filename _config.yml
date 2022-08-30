@@ -268,6 +268,12 @@ tag_archive:
 #     category: /categories/:name/
 #     tag: /tags/:name/
 
+# Math equation
+markdown: kramdown
+highlighter: rouge
+lsi: false
+excerpt_separator: "\n\n"
+incremental: false
 
 # HTML Compression
 # - https://jch.penibelst.de/
