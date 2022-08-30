@@ -5,157 +5,157 @@ title: "ResNet 논문 리뷰(Deep Residual Learning for Image Recognition)"
 ---
 
 안녕하세요! 
-이 리뷰글은 ResNet의 모든 내용을 다루지는 않고, 해당 논문에서 키포인트가 되는 개념을 다뤄 전반적인 이해를 돕는 것을 목표로 합니다.
+이 리뷰글은 ResNet의 모든 내용을 다루지는 않고, 해당 논문에서 키포인트가 되는 개념을 다뤄 전반적인 이해를 돕는 것을 목표로 합니다.   
 
-시작하겠습니다!
+시작하겠습니다!   
 
----
+- - -
 
-## 1. Introduction
-Introduction의 키워드는 __Deeper Model, Degradation Problem__입니다. 
+## 1. Introduction 
+Introduction의 키워드는 __Deeper Model, Degradation Problem__입니다.    
 
  
 
-이 당시 연구원들은 더 깊은 모델로 training을 진행하면 더 낮은 error rate가 나올 것이라고 기대했습니다. 하지만 실제로 실험을 해보자 일정 수준 이상으로 깊어진 모델은 오히려 더 높은 error rate를 보여주었습니다. 이는 overfitting의 문제가 아니었습니다. 아래 그림 참고하시면 iteration이 낮을 때에도 56-layer 모델이 20-layer보다 높은 error를 보여줌을 확인할 수 있습니다.
+이 당시 연구원들은 더 깊은 모델로 training을 진행하면 더 낮은 error rate가 나올 것이라고 기대했습니다. 하지만 실제로 실험을 해보자 일정 수준 이상으로 깊어진 모델은 오히려 더 높은 error rate를 보여주었습니다. 이는 overfitting의 문제가 아니었습니다. 아래 그림 참고하시면 iteration이 낮을 때에도 56-layer 모델이 20-layer보다 높은 error를 보여줌을 확인할 수 있습니다.   
 
 
-<사진>
+<사진>   
 
-이처럼 모델이 일정 수준 이상 깊어지면 오히려 더 낮은 정확도를 보이는 경우를 Degradation problem이라고 부릅니다. ResNet 모델의 의의는 이 degradation problem을 극복하고, 더 깊은 모델을 더욱 잘 학습하여, 얕은 모델보다 더욱 높은 성능에 도달한 것입니다.
+이처럼 모델이 일정 수준 이상 깊어지면 오히려 더 낮은 정확도를 보이는 경우를 Degradation problem이라고 부릅니다. ResNet 모델의 의의는 이 degradation problem을 극복하고, 더 깊은 모델을 더욱 잘 학습하여, 얕은 모델보다 더욱 높은 성능에 도달한 것입니다.   
 
 ## 3. Deep Residual Learning
-###Residual Mapping
-ResNet은 어떻게 깊은 모델을 잘 학습시키는 것이 가능했을까요?
+### Residual Mapping   
+ResNet은 어떻게 깊은 모델을 잘 학습시키는 것이 가능했을까요?   
 
-키포인트는 바로 Residual Mapping입니다. 
-
- 
-
-우리에게 x라는 input이 주어졌을 때, 실제로 추정해야하는 output을 H(x)라고 명시하겠습니다.
-
-ResNet은 H(x) 대신 H(x) - x를 추정하는 것을 목표합니다. 이 때 H(x) - x는 F(x)라고 명시하겠습니다.(이 경우 H(x) = F(x) + x 가 됩니다.) ResNet연구원들은 모델이 H(x) 대신 F(x)를 추정하는 것이 더 높은 정확도를 보였다고 합니다.
+키포인트는 바로 Residual Mapping입니다.    
 
  
 
-도대체 왜 H(x)를 추정하는 것보다 F(x)를 추정하는 것이 좋은 결과를 보였을까요?
+우리에게 x라는 input이 주어졌을 때, 실제로 추정해야하는 output을 H(x)라고 명시하겠습니다.   
 
-논문에서는 예시를 하나 들어서 설명하고 있습니다. 
-우리가 추정해야하는 H(x)가 Identity mapping이라고 가정합시다. (identity mapping에 대한 설명은 다음 단락 참고해주세요~)
+ResNet은 H(x) 대신 H(x) - x를 추정하는 것을 목표합니다. 이 때 H(x) - x는 F(x)라고 명시하겠습니다.(이 경우 H(x) = F(x) + x 가 됩니다.) ResNet연구원들은 모델이 H(x) 대신 F(x)를 추정하는 것이 더 높은 정확도를 보였다고 합니다.   
 
-이 때 모델이 H(x), 즉 x를 추정하는 것보다, H(x) - x = x - x = 0, 즉 0을 추정하는 것을 더 쉽게 느낍니다. 이 예시를 들면서 직관적으로 H(x)보다는 그것의 residual인 x를 추정하는 것이 쉽다고 설명하고 있습니다.
+ 
+
+도대체 왜 H(x)를 추정하는 것보다 F(x)를 추정하는 것이 좋은 결과를 보였을까요?   
+
+논문에서는 예시를 하나 들어서 설명하고 있습니다.    
+우리가 추정해야하는 H(x)가 Identity mapping이라고 가정합시다. (identity mapping에 대한 설명은 다음 단락 참고해주세요~)   
+
+이 때 모델이 H(x), 즉 x를 추정하는 것보다, H(x) - x = x - x = 0, 즉 0을 추정하는 것을 더 쉽게 느낍니다. 이 예시를 들면서 직관적으로 H(x)보다는 그것의 residual인 x를 추정하는 것이 쉽다고 설명하고 있습니다.   
 
  
 
 ### Identity Mapping by Shortcut
-논문에서 Identity mapping을 어떻게 구현했는지 살펴보겠습니다.
+논문에서 Identity mapping을 어떻게 구현했는지 살펴보겠습니다.   
 
  
 
-Identity mapping:  input값을 그대로 output값으로 내는 것을 의미합니다. 즉, input이 x라면 output 또한 x로 내는 것입니다.
+Identity mapping:  input값을 그대로 output값으로 내는 것을 의미합니다. 즉, input이 x라면 output 또한 x로 내는 것입니다.   
 
-이 논문에서는 Identity mapping을 shortcut connections를 통해 구현하고 있습니다. Shortcut connections는 몇 layer를 생략하는 것을 의미합니다.
+이 논문에서는 Identity mapping을 shortcut connections를 통해 구현하고 있습니다. Shortcut connections는 몇 layer를 생략하는 것을 의미합니다.   
 
-<사진>
+<사진>   
 
-위 그림에서 x라는 identity(또는 input)는 두 개의 weight layer을 생략합니다. 대신 두 weight layer의 결과값인 F(x)에 더해지고 있습니다. 
+위 그림에서 x라는 identity(또는 input)는 두 개의 weight layer을 생략합니다. 대신 두 weight layer의 결과값인 F(x)에 더해지고 있습니다.    
 
-결국 두 개의 layer는 residual function인 F(x)만을 예측하고, 그것에 x를 더하면서 우리가 결과적으로 원하는 H(x)를 얻게 됩니다.
-
- 
-
-좀 더 자세한 이해를 위해 식을 살펴보겠습니다!
-
-위의 Figure 2.에 두 개의 weight layer 보이시나요? 여기서 위의 weight layer에 해당되는 weight 값을 W1, 아래 weight layer에 해당되는 weight 값을 W2라고 하겠습니다.
-
-x가 두 개의 layer를 거치며 변화되는 양상은 다음과 같습니다.
-
-x  --첫번째 layer 통과 및 relu-->   __relu(W1*x)__  --두번째 layer 통과 및 relu-->   __relu(W2 *relu(W1*x))__
-
-즉, 두 layer를 거치며 반환된 output(F(x))은 W1과 W2의 식으로 표현됩니다.
-
-만약 layer의 개수가 i개라면, residual function(F(x))은 W1, W2, ... Wi의 식으로 표현될 것입니다. 
-
-아래 식에서는 i개의 weights들의 집합을 {Wi}로 표현하고 있습니다.
-
-결국 F(x,{Wi})는 i개의 weight layer를 통과한 결과값, 즉 추정된 residual function이 됩니다.
-
-<사진>
-
-그리고 그렇게 얻은 residual function에 x를 identity mapping하여 더하면 그것이 바로 H(x)가 됩니다. 
+결국 두 개의 layer는 residual function인 F(x)만을 예측하고, 그것에 x를 더하면서 우리가 결과적으로 원하는 H(x)를 얻게 됩니다.   
 
  
 
-만약 x가 weight layer을 지나다가 차원이 변하면 어떻게 해야할까요?
+좀 더 자세한 이해를 위해 식을 살펴보겠습니다!   
 
-x에 Ws 행렬을 곱하여 차원을 F(x)와 동일하게 맞춰줍니다.
+위의 Figure 2.에 두 개의 weight layer 보이시나요? 여기서 위의 weight layer에 해당되는 weight 값을 W1, 아래 weight layer에 해당되는 weight 값을 W2라고 하겠습니다.   
 
-<사진>
+x가 두 개의 layer를 거치며 변화되는 양상은 다음과 같습니다.   
+
+x  --첫번째 layer 통과 및 relu-->   __relu(W1*x)__  --두번째 layer 통과 및 relu-->   __relu(W2 *relu(W1*x))__   
+
+즉, 두 layer를 거치며 반환된 output(F(x))은 W1과 W2의 식으로 표현됩니다.   
+
+만약 layer의 개수가 i개라면, residual function(F(x))은 W1, W2, ... Wi의 식으로 표현될 것입니다.    
+
+아래 식에서는 i개의 weights들의 집합을 {Wi}로 표현하고 있습니다.   
+
+결국 F(x,{Wi})는 i개의 weight layer를 통과한 결과값, 즉 추정된 residual function이 됩니다.   
+
+<사진>   
+
+그리고 그렇게 얻은 residual function에 x를 identity mapping하여 더하면 그것이 바로 H(x)가 됩니다.    
+
+ 
+
+만약 x가 weight layer을 지나다가 차원이 변하면 어떻게 해야할까요?   
+
+x에 Ws 행렬을 곱하여 차원을 F(x)와 동일하게 맞춰줍니다.   
+
+<사진>   
 
 ### Network Architecture
-해당 논문에서 제시한 Residual Network만 살펴보겠습니다. (오른쪽 그림에서는 34-layer residual에 해당합니다.)
+해당 논문에서 제시한 Residual Network만 살펴보겠습니다. (오른쪽 그림에서는 34-layer residual에 해당합니다.)   
 
 
-위에 소개된 개념에 따라 모델이 구성되어 있고, 이번에 새롭게 살펴볼 내용은 차원이 증가할 때 identity mapping을 어떻게 하느냐입니다.
-
- 
-
-앞부분을 잊었을까 다시 언급하자면 residual function을 예측하는 weight layer를 지나는 도중에 차원이 증가된 경우, 어떻게 identity mapping을 진행할 것인지 얘기하겠습니다. 오른쪽 그림의 34-layer residual에서 점섬으로 표현된 부분이 차원이 증가하는 부분입니다.
+위에 소개된 개념에 따라 모델이 구성되어 있고, 이번에 새롭게 살펴볼 내용은 차원이 증가할 때 identity mapping을 어떻게 하느냐입니다.   
 
  
 
-만약 차원이 증가하지 않고 동일하게 유지되는 경우, Identity Shortcut 방식으로 진행됩니다. 즉, layer를 생략하고 layer의 output에 그대로 더해지는 것입니다.
+앞부분을 잊었을까 다시 언급하자면 residual function을 예측하는 weight layer를 지나는 도중에 차원이 증가된 경우, 어떻게 identity mapping을 진행할 것인지 얘기하겠습니다. 오른쪽 그림의 34-layer residual에서 점섬으로 표현된 부분이 차원이 증가하는 부분입니다.   
 
  
 
-차원이 증가한다면 다음의 두 가지 방식으로 진행됩니다.
+만약 차원이 증가하지 않고 동일하게 유지되는 경우, Identity Shortcut 방식으로 진행됩니다. 즉, layer를 생략하고 layer의 output에 그대로 더해지는 것입니다.   
 
-1. Identity mapping with zero padding
+ 
 
-차원이 일정할 때와 마찬가지로 Identity shortcut 방식으로 input이 그대로 전달됩니다. 다만, output과 합쳐지기 전에 input에 0 padding을 더해서 차원을 맞춰줍니다.
+차원이 증가한다면 다음의 두 가지 방식으로 진행됩니다.   
 
-2. The projection shortcut
+1. Identity mapping with zero padding   
 
-Ws 행렬을 곱해준 방식입니다. 1*1 conv을 활용하여 Ws 행렬을 곱해줘서 차원을 맞춰줍니다.
+차원이 일정할 때와 마찬가지로 Identity shortcut 방식으로 input이 그대로 전달됩니다. 다만, output과 합쳐지기 전에 input에 0 padding을 더해서 차원을 맞춰줍니다.   
 
-<사진>
+2. The projection shortcut   
+
+Ws 행렬을 곱해준 방식입니다. 1*1 conv을 활용하여 Ws 행렬을 곱해줘서 차원을 맞춰줍니다.   
+
+<사진>   
 
 ## 4. Experiments
-Deeper Bottleneck Architectures
-지엽적인 내용을 모두 다루지는 않고, 가장 인상깊었던 bottleneck architecture에 관해서만 다루도록 하겠습니다.
+Deeper Bottleneck Architectures   
+지엽적인 내용을 모두 다루지는 않고, 가장 인상깊었던 bottleneck architecture에 관해서만 다루도록 하겠습니다.   
 
-Bottleneck Architecture는 더욱 깊은 모델을 사용할 때 계산 복잡도를 낮추기 위해 활용되는 구조입니다. 단순하게 말하자면 input이 필터를 통과하기 전에 input의 차원을 줄이고, 필터 통과 후 다시 차원을 높여주는 것입니다.
-
- 
-
-ResNet에서는 1*1 convolution을 통하여 차원을 낮추거나 높여줍니다. 덕분에 3*3 conv layer는 더욱 낮은 차원의 input을 다룰 수 있게 됩니다. 
-
-모델 구조를 보겠습니다.
-
-<사진>
-
-왼쪽 그림이 우리가 지금까지 보던 구조입니다. 왼쪽 구조를 보면 input의 dimension이 64 차원인 것을 볼 수 있습니다. 
+Bottleneck Architecture는 더욱 깊은 모델을 사용할 때 계산 복잡도를 낮추기 위해 활용되는 구조입니다. 단순하게 말하자면 input이 필터를 통과하기 전에 input의 차원을 줄이고, 필터 통과 후 다시 차원을 높여주는 것입니다.   
 
  
 
-더욱 깊은 모델의 경우, 더욱 고차원의 input이 필요합니다. 하지만 고차원의 input을 다루기 위해서는 높은 계산복잡도가 불가피합니다.
+ResNet에서는 1*1 convolution을 통하여 차원을 낮추거나 높여줍니다. 덕분에 3*3 conv layer는 더욱 낮은 차원의 input을 다룰 수 있게 됩니다.    
+
+모델 구조를 보겠습니다.   
+
+<사진>   
+  
+왼쪽 그림이 우리가 지금까지 보던 구조입니다. 왼쪽 구조를 보면 input의 dimension이 64 차원인 것을 볼 수 있습니다.    
 
  
 
-오른쪽 그림은 더욱 깊은 모델로 256 차원짜리 input이 주어집니다. 하지만 1*1 convolution을 통해 차원을 낮추고 3*3 convolution을 진행하는 것을 볼 수 있습니다. 이후 1*1 convolution을 통해 다시 차원을 높여주고 있습니다.
-
-오른쪽과 같은 구조를 우리는 bottleneck architecture라고 부릅니다. 해당 방법을 통해 3*3 layer의 parameter 개수를 줄이고 계산복잡도를 훨씬 낮출 수 있습니다.
+더욱 깊은 모델의 경우, 더욱 고차원의 input이 필요합니다. 하지만 고차원의 input을 다루기 위해서는 높은 계산복잡도가 불가피합니다.   
 
  
 
-논문에서는 bottleneck architecture에 적합한 identity mapping은 parameter-free identity shortcut이라고 얘기하고 있습니다. 이유는 다음과 같습니다.
-
-고차원의 input에 projection shortcut이 적용되어 고차원의 output을 반환하려면 projection shortcut에 매우 많은 개수의 parameter가 포함되어야 합니다. 때문에 parameter를 추정해야하는 projection shortcut을 활용하면 계산 복잡도가 두 배로 늘어나게 됩니다.
-
-반면 parameter-free identity shortcut을 활용하면 input과 output의 차원에 관계없이 낮은 계산복잡도로 identity mapping을 진행할 수 있기 때문에 훨씬 효율적으로 모델이 작동할 수 있게 됩니다.
+오른쪽 그림은 더욱 깊은 모델로 256 차원짜리 input이 주어집니다. 하지만 1*1 convolution을 통해 차원을 낮추고 3*3 convolution을 진행하는 것을 볼 수 있습니다. 이후 1*1 convolution을 통해 다시 차원을 높여주고 있습니다.   
+ 
+오른쪽과 같은 구조를 우리는 bottleneck architecture라고 부릅니다. 해당 방법을 통해 3*3 layer의 parameter 개수를 줄이고 계산복잡도를 훨씬 낮출 수 있습니다.   
 
  
 
- ___
+논문에서는 bottleneck architecture에 적합한 identity mapping은 parameter-free identity shortcut이라고 얘기하고 있습니다. 이유는 다음과 같습니다.   
+
+고차원의 input에 projection shortcut이 적용되어 고차원의 output을 반환하려면 projection shortcut에 매우 많은 개수의 parameter가 포함되어야 합니다. 때문에 parameter를 추정해야하는 projection shortcut을 활용하면 계산 복잡도가 두 배로 늘어나게 됩니다.   
+
+반면 parameter-free identity shortcut을 활용하면 input과 output의 차원에 관계없이 낮은 계산복잡도로 identity mapping을 진행할 수 있기 때문에 훨씬 효율적으로 모델이 작동할 수 있게 됩니다.   
+
+ 
+
+ _ _ _
  
  
 읽어주셔서 감사합니다.
@@ -164,7 +164,7 @@ ResNet에서는 1*1 convolution을 통하여 차원을 낮추거나 높여줍니
 
  
 
-읽다가 잘못된 부분을 발견하거나 피드백이 있다면 댓글로 달아주세요!
+\\읽다가 잘못된 부분을 발견하거나 피드백이 있다면 댓글로 달아주세요!
 
  
 
