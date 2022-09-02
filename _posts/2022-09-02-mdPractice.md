@@ -15,6 +15,6 @@ layout: post
 마크다운을 쓰고 싶당.<br>
 * * *
 
-\sum\frac{\partial f(x)}{\partial x} \ast \mathbb{Z}
+$\sum\frac{\partial f(x)}{\partial x} \ast \mathbb{Z}$
 * * *
 * * *
