@@ -1,7 +1,6 @@
 ---
 title: my practice
 use_math: true
-layout: post
 ---
 
 ## 안녕하세요.
