@@ -1,5 +1,7 @@
 ---
 title: my practice
+use_math: true
+layout: post
 ---
 
 ## 안녕하세요.
@@ -12,3 +14,5 @@ title: my practice
 
 마크다운을 쓰고 싶당.<br>
 * * *
+
+\sum\frac{\partial f(x)}{\partial x} \ast \mathbb{Z}
