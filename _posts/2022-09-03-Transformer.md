@@ -32,6 +32,7 @@ X: Input tensor(n \* N matrix)
 Q: Query(n \* d_1 matrix)   
 K: Key Matrix(n \* d_2 matrix)   
 V: Value Matrix(n \* d_3 matrix)   
+보통 embedding 차원의 값은 통일하기 때문에 이 블로그에서도 d라고 나타내겠다. (d_1 = d_2 = d_3 = d)
 <br>
 W1, W2, W3는 X에 곱해져서 각각 Q, K, V를 만들어내는 weigh matrix이다.    
 K = W_1 \* X   
@@ -64,11 +65,18 @@ V = W_3 \* X
 
 #### Score Matrix
 Score Matrix는 결국 단어들 간의 연관도를 나타내는 행렬이다.   
-Q\*K를 함으로써 우리는 단어들 간의 연관도를 계산한다. 그리고 score matrix를 정규화함으로써 gradient의 안정화를 추구한다.   
-안정화된 score matrix를 softmax 함수에 넣으면 한 행의 sum 값은 1이 된다. 그 결과를 P라고 지칭한다.   
+S = Q\*K^T   
+위 식의 Q와 K행렬은 둘 다 n * d 차원의 행렬이다. n이 time step 또는 sequence를 의미한다고 봤을 때, 이 행렬의 차원이 의미하는 것은 다음과 같다.   
+두 행렬 모두 각 행은 한 단어를 d차원의 embedding 벡터로 표현하는 것이다.   
+예를 들어보자. Input이 I am a boy라는 문장이 있다고 생각해보자. Q, K 행렬의 첫번째, 두번째, 세번째, 네번째 행은 각각 I, am, a, boy를 상징한다. 그리고 각 행은 d차원의 임베딩 벡터로 표현되는 것이다.     
+
+
 P 행렬의 각 행을 이루고 있는 값들 중에는 최댓값이 존재할 것이다. 이 때, P 행렬이 softmax의 결과값이기 때문에 이 최댓값은 **최대 확률** 을 나타낸다.   
 <br>
-step4에서 이 P 행렬을 V 행렬과 곱하는데, 이 단계에서 잠시 행렬곱의 얘기를 하겠다. 
+step4에서 이 V 행렬을 P 행렬과 곱하는데, 이 단계에서 잠시 행렬곱의 얘기를 하겠다. 
+![274D6B4152FB2FB105](https://user-images.githubusercontent.com/87808237/188271389-e0011dd9-f566-4ee9-a10f-48067dafc2db.png)
+위 이미지를 보고 V\*P 계산식을 살펴보면, V 행렬의 각 행을 P 행렬의 각 열과 곱한다는 것을 알 수 있다.   
+
 
 
 
