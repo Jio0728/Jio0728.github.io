@@ -2,15 +2,18 @@
 title: Transformer 기본 개념 정리
 use_math: true
 comment: true
+categories: 
+- Deep Learning
+tags: 
+- Deep Learning
+- Transformer
+- Attention
 ---
 
 ### Table of Contents
 1. Attention이란?
 2. Self-Attention
 3. Multi-Head Attention
-  a. Multi-Head Attention: Splitting
-  b. Multi-Head Attention: Attention Operation
-  c. Multi-Head Attention: Merging
 4. Transforemrs
   a. Encoder
   b. Decoder
@@ -61,7 +64,9 @@ V = W_3 \* X
 이 때 우리가 검색한 내용, "흰색 셔츠에서 기름 때 제거하는 법"은 Q matrix에 해당한다. 즉, Q는 우리가 찾으려는 것이다.   
 그리고 구글이 선보이는 여러 비슷한 결과들은 K matrix에 해당한다. 즉, K는 연관성 있는 것들의 집합이다.    
 우리가 결국 선택한 "셔츠에서 기름 때 제거하기"라는 블로그는 V matrix에 해당한다. 즉, V는 우리가 찾는 것과 가장 비슷한 것을 의미한다.   
-해당 사례로 조금이나마 감을 잡으면 다음 step에 대한 이해가 조금 더 쉬워질 것이다.
+해당 사례로 조금이나마 감을 잡으면 다음 step에 대한 이해가 조금 더 쉬워질 것이다.   
+<br>
+이와 같이 Q,K,V를 구하는 과정은 input X행렬에 가중치 행렬을 곱하는 것으로 linear layer이다.
 
 #### Score Matrix
 Score Matrix는 결국 단어들 간의 연관도를 나타내는 행렬이다.   
@@ -85,12 +90,18 @@ P\*V 계산식을 살펴보면, P의 각 행을 V의 각 열에 곱한다는 것
 #### Masking
 마스킹은 0과 1로만 이루어진 n\*n행렬이고 Q\*K^T^행렬의 곱에 더해진다. 마스킹은 두 가지 목적을 위해 한다.   
 1. transformer는 RNN과 달리 Input 문장의 sequence의 개수가 고정되어 있다. 때문에 그 개수보다 작은 size(size: sequence의 개수)의 문장이 들어오면 남은 sequence를 0-padding으로 채운다. 해당 패딩은 아무 의미를 포함하지 않기 때문에 softmax 함수를 거치기 전에 mask를 씌워서 다 지워버린다.
-2. 디코더에서 미래 값을 참조하는 것을 막기 위하여 미래 값에 마스크를 씌운다.
+2. 디코더에서 미래 값을 참조하는 것을 막기 위하여 미래 값에 마스크를 씌운다.   
+
 ![decoder_mask](https://user-images.githubusercontent.com/87808237/188441698-7014cdb6-491f-44a7-a1be-57ab54016f26.png)
+<br>
 
 # Multi-Head Attention
-Multi-Head Attention은 전체적인 작동 
-
+Multi-Head Attention은 전체적인 작동 논리가 Self-Attention과 크게 다르지 않다. 한 가지 차이점은 Q, K, V 행렬이 **쪼개진다** 는 것이다.
+각 행렬은 모두 쪼개져서 작동하지만, 쪼개진 행렬들은 모두 똑같은 linear layer을 공유한다. 단지 input X행렬에서 각각의 own logical section에 작용할 뿐이다. 그저 쪼개진다!
+<br>
+각 행렬은 쪼개져서 쪼개진 행렬은 각각의 Attention Head가 된다. Attention Head들은 Self Attention과 똑같은 방식으로, 그저 X행렬의 own logical section에만 작용한다.   
+이후에 self attention의 Z행렬과 비슷한 것이 Attention Head마다 하나씩 생성되면 이후 합쳐진다.
+![PSqZ7](https://user-images.githubusercontent.com/87808237/188443678-a7b99140-b1e7-4f95-9310-c06c222ca45e.png)
 
 좋은 참조 사이트:   
 https://towardsdatascience.com/an-intuitive-explanation-of-self-attention-4f72709638e1
