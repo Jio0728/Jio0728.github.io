@@ -102,8 +102,10 @@ Multi-Head Attention은 전체적인 작동 논리가 Self-Attention과 크게 �
 각 행렬은 쪼개져서 쪼개진 행렬은 각각의 Attention Head가 된다. Attention Head들은 Self Attention과 똑같은 방식으로, 그저 X행렬의 own logical section에만 작용한다.   
 이후에 self attention의 Z행렬과 비슷한 것이 Attention Head마다 하나씩 생성되면 이후 합쳐진다.
 ![PSqZ7](https://user-images.githubusercontent.com/87808237/188443678-a7b99140-b1e7-4f95-9310-c06c222ca45e.png)
-
-좋은 참조 사이트:   
+<br>
+<br>
+* * *
+### 좋은 참조 사이트:   
 https://towardsdatascience.com/an-intuitive-explanation-of-self-attention-4f72709638e1
 
 
