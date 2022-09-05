@@ -83,7 +83,17 @@ P\*V 계산식을 살펴보면, P의 각 행을 V의 각 열에 곱한다는 것
 <br>
 <br>
 #### Masking
+마스킹은 0과 1로만 이루어진 n\*n행렬이고 Q\*K^T^행렬의 곱에 더해진다. 마스킹은 두 가지 목적을 위해 한다.   
+1. transformer는 RNN과 달리 Input 문장의 sequence의 개수가 고정되어 있다. 때문에 그 개수보다 작은 size(size: sequence의 개수)의 문장이 들어오면 남은 sequence를 0-padding으로 채운다. 해당 패딩은 아무 의미를 포함하지 않기 때문에 softmax 함수를 거치기 전에 mask를 씌워서 다 지워버린다.
+2. 디코더에서 미래 값을 참조하는 것을 막기 위하여 미래 값에 마스크를 씌운다.
+![decoder_mask](https://user-images.githubusercontent.com/87808237/188441698-7014cdb6-491f-44a7-a1be-57ab54016f26.png)
 
+# Multi-Head Attention
+Multi-Head Attention은 전체적인 작동 
+
+
+좋은 참조 사이트:   
+https://towardsdatascience.com/an-intuitive-explanation-of-self-attention-4f72709638e1
 
 
 
