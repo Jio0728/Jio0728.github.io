@@ -1,5 +1,5 @@
 ---
-title: Transformer 기본 개념 정리
+title: Attention 기본 개념 정리
 use_math: true
 comment: true
 categories: 
