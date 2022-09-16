@@ -16,7 +16,7 @@ $$\Pr\left [ \left| X\right| \geq a \right ] \leq \frac{\mathbb{E}\left [ \left|
 $$\Pr\left [ \left| X - \mathbb{E}\left ( \left|X \right| \right )\right| \geq a \right ] \leq \frac{\mathrm{Var}\left ( X  \right )}{a^{2}}$$
 
 # 3. Jensen's Inequality
-If $\varphi $\varphi $ is a convex function,
+If $\varphi $ is a convex function,
 $$\varphi \left( \mathbb{E}\left[ X\right]\right) \leq \mathbb{E} \left[\varphi\left( X\right) \right]$$
 Vice versa in case of concave function.
 
