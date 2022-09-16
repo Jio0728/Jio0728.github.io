@@ -1,6 +1,7 @@
 ---
 title: Statistical Ineuqalities 모음집
 use_math: true
+comments: true
 ---
 
 # 1. Cauch-Schwarts Inequality
